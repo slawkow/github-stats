@@ -10,5 +10,5 @@ spring:
 
 github:
   api:
-    url:
-    timeout:
+    url: http://localhost:38081
+    timeout: 1000

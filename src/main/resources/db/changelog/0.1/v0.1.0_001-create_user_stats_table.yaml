@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0.1.0_001
+      author: slawkow
+      comment: "user_stats table initialization"
+      changes:
+        - createTable:
+            tableName: user_stats
+            columns:
+              - column:
+                  name: login
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: request_count
+                  type: bigint
+                  constraints:
+                    nullable: false
+            encoding: UTF-8
+        - tagDatabase:
+            tag: 0.1.0
+      rollback:
+        - dropTable:
+            tableName: user_stats
