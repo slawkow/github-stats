@@ -2,7 +2,9 @@ package pl.slawkow.githubstats.users.db;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @Entity(name = "user_stats")

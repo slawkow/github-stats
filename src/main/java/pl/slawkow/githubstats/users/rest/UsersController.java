@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.slawkow.githubstats.users.UserService;
 import pl.slawkow.githubstats.users.UserData;
 import pl.slawkow.githubstats.users.UserDataWrapper;
+import pl.slawkow.githubstats.users.UserService;
 
 import java.time.OffsetDateTime;
 

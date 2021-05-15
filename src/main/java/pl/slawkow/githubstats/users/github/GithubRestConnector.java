@@ -1,4 +1,4 @@
-package pl.slawkow.githubstats.users;
+package pl.slawkow.githubstats.users.github;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import pl.slawkow.githubstats.common.rest.ServiceResponseWrapper;
+import pl.slawkow.githubstats.users.UserData;
 
 import java.time.OffsetDateTime;
 

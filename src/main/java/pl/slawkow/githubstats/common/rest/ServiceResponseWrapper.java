@@ -1,4 +1,4 @@
-package pl.slawkow.githubstats.users;
+package pl.slawkow.githubstats.common.rest;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,6 +20,10 @@ public class ServiceResponseWrapper<T> {
     }
 
     public static <T> ServiceResponseWrapper<T> createErrorResponse(Error error) {
+        if (error == null) {
+            throw new IllegalArgumentException("Error cannot be null in error response");
+        }
+
         return new ServiceResponseWrapper<>(
                 null,
                 Status.ERROR,

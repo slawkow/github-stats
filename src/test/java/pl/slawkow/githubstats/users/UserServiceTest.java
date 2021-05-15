@@ -6,9 +6,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import pl.slawkow.githubstats.common.rest.ServiceResponseWrapper;
 import pl.slawkow.githubstats.users.db.UsersDatabaseRepository;
+import pl.slawkow.githubstats.users.github.GithubRestConnector;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;

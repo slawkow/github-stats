@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-interface UserStatsStorage extends CrudRepository<UserStatsDbEntity, String> {
+public interface UserStatsStorage extends CrudRepository<UserStatsDbEntity, String> {
 
     @Transactional
     @Modifying

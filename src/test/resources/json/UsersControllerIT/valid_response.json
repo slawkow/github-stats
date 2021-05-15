@@ -5,5 +5,5 @@
   "type": "testType",
   "avatarUrl": "http://x.y/z",
   "createdAt": "2021-05-15T10:10:00Z",
-  "calculations": "35"
+  "calculations": "35.0"
 }

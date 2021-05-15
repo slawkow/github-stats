@@ -1,10 +1,17 @@
-package pl.slawkow.githubstats.users;
+package pl.slawkow.githubstats.users.github;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import pl.slawkow.githubstats.common.rest.ServiceResponseWrapper;
+import pl.slawkow.githubstats.users.UserData;
+import pl.slawkow.githubstats.users.db.UserStatsStorage;
+import pl.slawkow.githubstats.users.github.GithubRestConnector;
 import pl.slawkow.githubstats.utils.DocumentTestUtils;
 import pl.slawkow.githubstats.utils.WireMockExtension;
 
@@ -18,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 class GithubRestConnectorIT {
 
     @RegisterExtension
@@ -25,6 +33,9 @@ class GithubRestConnectorIT {
 
     @Autowired
     private GithubRestConnector githubRestConnector;
+
+    @MockBean
+    private UserStatsStorage userStatsStorage;
 
     @Test
     void getUserDataShouldReturnValidDataForOkResponse() throws IOException {
@@ -150,6 +161,7 @@ class GithubRestConnectorIT {
         assertNull(result.getResponseContent());
     }
 
+    //actually HTTP.202 are valid responses from github, but there is no enough description to understand this case
     @Test
     void getUserDataShouldReturnUnexpectedResponseForAcceptedResponse() {
         //given

@@ -1,4 +1,4 @@
-package pl.slawkow.githubstats.users;
+package pl.slawkow.githubstats.common.github;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +16,7 @@ public class GithubWebClientProvider {
 
     private static final String CONTENT_TYPE_HEADER_NAME = "Content-Type";
     private static final String ACCEPT_HEADER_NAME = "Accept";
+    private static final String GITHUB_ACCEPT_VALUE_API_V3 = "application/vnd.github.v3+json";
 
     @Bean("githubWebClient")
     public WebClient createDataSourceWebClient(@Value("${github.api.timeout}") int timeout,
@@ -30,7 +31,7 @@ public class GithubWebClientProvider {
         return WebClient.builder()
                 .defaultHeaders(httpHeaders -> {
                     httpHeaders.put(CONTENT_TYPE_HEADER_NAME, Collections.singletonList(MediaType.APPLICATION_JSON.toString()));
-                    httpHeaders.put(ACCEPT_HEADER_NAME, Collections.singletonList(MediaType.APPLICATION_JSON.toString()));
+                    httpHeaders.put(ACCEPT_HEADER_NAME, Collections.singletonList(GITHUB_ACCEPT_VALUE_API_V3));
                 })
                 .clientConnector(new ReactorClientHttpConnector(createHttpClient(timeout)));
     }

@@ -1,6 +1,7 @@
-package pl.slawkow.githubstats.users;
+package pl.slawkow.githubstats.users.github;
 
 import org.junit.jupiter.api.Test;
+import pl.slawkow.githubstats.users.UserData;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
