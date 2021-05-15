@@ -1,6 +1,13 @@
 server:
   port: 8080
 
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/github-stats
+    username: user
+    password: secret
+    driverClassName: org.postgresql.Driver
+
 github:
   api:
     url: https://api.github.com

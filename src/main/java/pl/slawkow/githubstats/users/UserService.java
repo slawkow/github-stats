@@ -3,6 +3,7 @@ package pl.slawkow.githubstats.users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.slawkow.githubstats.users.db.UsersDatabaseRepository;
 
 @Slf4j
 @Service

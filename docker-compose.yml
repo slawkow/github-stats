@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db-engine:
+    image: postgres:13.3
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=github-stats
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=secret

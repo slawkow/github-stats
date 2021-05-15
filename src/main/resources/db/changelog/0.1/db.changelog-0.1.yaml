@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      - file: "v0.1.0_001-create_user_stats_table.yaml"
+      - relativeToChangelogFile: true
