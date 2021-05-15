@@ -60,7 +60,7 @@ class UsersControllerIT {
     void controllerShouldReturnValidResponseWhenStatusIsErrorButOnlyNotPersisted() throws Exception {
         //given
         when(userService.getUserStats("test")).thenReturn(UserDataWrapper.createErrorResponse(
-                UserDataWrapper.Error.STATS_NOT_PERSISTED,
+                UserDataWrapper.Error.REQUEST_COUNTER_NOT_PERSISTED,
                 new UserData(
                         123,
                         "test",

@@ -103,7 +103,7 @@ class UserDataWrapperTest {
     @Test
     void shouldReturnWrapperWithErrorWhenCreatingErrorResponseWithProperErrorAndWithUserStats() {
         //when
-        UserDataWrapper result = UserDataWrapper.createErrorResponse(UserDataWrapper.Error.STATS_NOT_PERSISTED, new UserData(
+        UserDataWrapper result = UserDataWrapper.createErrorResponse(UserDataWrapper.Error.REQUEST_COUNTER_NOT_PERSISTED, new UserData(
                 123,
                 "test",
                 "testName",
@@ -118,7 +118,7 @@ class UserDataWrapperTest {
         //then
         assertNotNull(result);
         assertEquals(UserDataWrapper.Status.ERROR, result.getStatus());
-        assertEquals(UserDataWrapper.Error.STATS_NOT_PERSISTED, result.getError());
+        assertEquals(UserDataWrapper.Error.REQUEST_COUNTER_NOT_PERSISTED, result.getError());
         assertEquals(new UserData(
                 123,
                 "test",

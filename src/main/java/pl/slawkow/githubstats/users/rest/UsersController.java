@@ -42,7 +42,7 @@ public class UsersController {
                     return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build(); //TODO body
                 case USER_NOT_FOUND:
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); //TODO body
-                case STATS_NOT_PERSISTED:
+                case REQUEST_COUNTER_NOT_PERSISTED:
                     log.warn("Data for user {} were obtained correctly, but requests counter was not incremented " +
                             "properly", login);
                     return ResponseEntity.ok(UserStatsResponse.from(userDataWrapper.getUserData()));

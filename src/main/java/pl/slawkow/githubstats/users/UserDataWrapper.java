@@ -40,6 +40,6 @@ public class UserDataWrapper {
     }
 
     public enum Error {
-        USER_NOT_FOUND, EXTERNAL_API_ERROR, STATS_NOT_PERSISTED
+        USER_NOT_FOUND, EXTERNAL_API_ERROR, REQUEST_COUNTER_NOT_PERSISTED
     }
 }
