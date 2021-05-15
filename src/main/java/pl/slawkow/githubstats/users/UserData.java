@@ -14,7 +14,8 @@ import java.time.OffsetDateTime;
 @Getter
 @EqualsAndHashCode
 public class UserData {
-    public static final int CALCULATE_PRECISION = 10;
+    private static final int CALCULATE_PRECISION = 10;
+
     private final long id;
     private final String login;
     private final String name;
