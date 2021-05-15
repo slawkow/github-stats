@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.slawkow.githubstats.users.UserService;
-import pl.slawkow.githubstats.users.UserStats;
-import pl.slawkow.githubstats.users.UserStatsWrapper;
+import pl.slawkow.githubstats.users.UserData;
+import pl.slawkow.githubstats.users.UserDataWrapper;
 
 import java.time.OffsetDateTime;
 
@@ -28,14 +28,14 @@ public class UsersController {
 
     @GetMapping(value = "/{login}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<UserStatsResponse> getUserStats(@PathVariable String login) {
-        UserStatsWrapper userStatsWrapper = userService.getUserStats(login);
+        UserDataWrapper userDataWrapper = userService.getUserStats(login);
 
-        if (userStatsWrapper == null) {
+        if (userDataWrapper == null) {
             throw new IllegalArgumentException("userStatsWrapper cannot be null");
         }
 
-        if (userStatsWrapper.getStatus() == UserStatsWrapper.Status.ERROR) {
-            switch (userStatsWrapper.getError()) {
+        if (userDataWrapper.getStatus() == UserDataWrapper.Status.ERROR) {
+            switch (userDataWrapper.getError()) {
                 case EXTERNAL_API_ERROR:
                     String errorMessage = String.format("External API returned error, while trying to obtain info for user: %s", login);
                     log.error(errorMessage);
@@ -45,14 +45,14 @@ public class UsersController {
                 case STATS_NOT_PERSISTED:
                     log.warn("Data for user {} were obtained correctly, but requests counter was not incremented " +
                             "properly", login);
-                    return ResponseEntity.ok(UserStatsResponse.from(userStatsWrapper.getUserStats()));
+                    return ResponseEntity.ok(UserStatsResponse.from(userDataWrapper.getUserData()));
                 default:
-                    log.error("Unsupported error type: {}", userStatsWrapper.getError());
+                    log.error("Unsupported error type: {}", userDataWrapper.getError());
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); //TODO body
             }
         }
 
-        return ResponseEntity.ok(UserStatsResponse.from(userStatsWrapper.getUserStats()));
+        return ResponseEntity.ok(UserStatsResponse.from(userDataWrapper.getUserData()));
     }
 
     @Value
@@ -68,19 +68,19 @@ public class UsersController {
         private final OffsetDateTime createdAt;
         private final String calculations;
 
-        static UserStatsResponse from(UserStats userStats) {
-            if (userStats == null) {
+        static UserStatsResponse from(UserData userData) {
+            if (userData == null) {
                 throw new IllegalArgumentException("UserStats cannot be null while trying to prepare response");
             }
 
             return new UserStatsResponse(
-                    String.valueOf(userStats.getId()),
-                    userStats.getLogin(),
-                    userStats.getName(),
-                    userStats.getType(),
-                    userStats.getAvatarUrl(),
-                    userStats.getCreatedAt(),
-                    userStats.getCalculations() != null ? userStats.getCalculations().toString() : null
+                    String.valueOf(userData.getId()),
+                    userData.getLogin(),
+                    userData.getName(),
+                    userData.getType(),
+                    userData.getAvatarUrl(),
+                    userData.getCreatedAt(),
+                    userData.getCalculations() != null ? userData.getCalculations().toString() : null
             );
         }
     }

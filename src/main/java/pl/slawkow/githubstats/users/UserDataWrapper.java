@@ -6,32 +6,32 @@ import lombok.Value;
 
 @Value
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserStatsWrapper {
-    private final UserStats userStats;
+public class UserDataWrapper {
+    private final UserData userData;
     private final Status status;
     private final Error error;
 
-    public static UserStatsWrapper createOkResponse(UserStats userStats) {
-        if (userStats == null) {
+    public static UserDataWrapper createOkResponse(UserData userData) {
+        if (userData == null) {
             throw new IllegalArgumentException("User stats cannot be null for OK response");
         }
 
-        return new UserStatsWrapper(
-                userStats, Status.OK, null
+        return new UserDataWrapper(
+                userData, Status.OK, null
         );
     }
 
-    public static UserStatsWrapper createErrorResponse(Error error) {
+    public static UserDataWrapper createErrorResponse(Error error) {
         return createErrorResponse(error, null);
     }
 
-    public static UserStatsWrapper createErrorResponse(Error error, UserStats userStats) {
+    public static UserDataWrapper createErrorResponse(Error error, UserData userData) {
         if (error == null) {
             throw new IllegalArgumentException("Error cannot be null for ERROR response");
         }
 
-        return new UserStatsWrapper(
-                userStats, Status.ERROR, error
+        return new UserDataWrapper(
+                userData, Status.ERROR, error
         );
     }
 

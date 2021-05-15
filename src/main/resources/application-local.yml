@@ -1,0 +1,7 @@
+server:
+  port: 8080
+
+github:
+  api:
+    url: https://api.github.com
+    timeout: 30000

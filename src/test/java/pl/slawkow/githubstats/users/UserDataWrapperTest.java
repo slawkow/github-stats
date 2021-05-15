@@ -8,64 +8,70 @@ import java.time.ZoneOffset;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserStatsWrapperTest {
+class UserDataWrapperTest {
 
     @Test
     void shouldCreateWrapperWithOkResponse() {
         //when
-        UserStatsWrapper result = UserStatsWrapper.createOkResponse(new UserStats(
+        UserDataWrapper result = UserDataWrapper.createOkResponse(new UserData(
                 123,
                 "test",
                 "testName",
                 "testType",
                 "http://x.y/z",
                 OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
+                5,
+                15,
                 35L
         ));
 
         //then
         assertNotNull(result);
-        assertEquals(new UserStats(
+        assertEquals(new UserData(
                 123,
                 "test",
                 "testName",
                 "testType",
                 "http://x.y/z",
                 OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
+                5,
+                15,
                 35L
-        ), result.getUserStats());
-        assertEquals(UserStatsWrapper.Status.OK, result.getStatus());
+        ), result.getUserData());
+        assertEquals(UserDataWrapper.Status.OK, result.getStatus());
         assertNull(result.getError());
     }
 
     @Test
     void shouldThrowExceptionWhenCreatingOkResponseWithoutUserStats() {
         //when
-        assertThrows(IllegalArgumentException.class, () -> UserStatsWrapper.createOkResponse(null));
+        assertThrows(IllegalArgumentException.class, () -> UserDataWrapper.createOkResponse(null));
     }
 
     @Test
     void shouldThrowExceptionWhenCreatingErrorResponseWithoutError() {
         //when
-        assertThrows(IllegalArgumentException.class, () -> UserStatsWrapper.createErrorResponse(null));
+        assertThrows(IllegalArgumentException.class, () -> UserDataWrapper.createErrorResponse(null));
     }
 
     @Test
     void shouldThrowExceptionWhenCreatingErrorResponseWithoutErrorAndWithoutUserStats() {
         //when
-        assertThrows(IllegalArgumentException.class, () -> UserStatsWrapper.createErrorResponse(null, null));
+        assertThrows(IllegalArgumentException.class, () -> UserDataWrapper.createErrorResponse(null, null));
     }
 
     @Test
     void shouldThrowExceptionWhenCreatingErrorResponseWithoutErrorAndWithUserStats() {
         //when
-        assertThrows(IllegalArgumentException.class, () -> UserStatsWrapper.createErrorResponse(null, new UserStats(
+        assertThrows(IllegalArgumentException.class, () -> UserDataWrapper.createErrorResponse(null, new UserData(
                 123,
                 "test",
                 "testName",
                 "testType",
                 "http://x.y/z",
                 OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
+                5,
+                15,
                 35L
         )));
     }
@@ -73,52 +79,56 @@ class UserStatsWrapperTest {
     @Test
     void shouldReturnWrapperWithErrorWhenCreatingErrorResponseWithProperError() {
         //when
-        UserStatsWrapper result = UserStatsWrapper.createErrorResponse(UserStatsWrapper.Error.USER_NOT_FOUND);
+        UserDataWrapper result = UserDataWrapper.createErrorResponse(UserDataWrapper.Error.USER_NOT_FOUND);
 
         //then
         assertNotNull(result);
-        assertEquals(UserStatsWrapper.Status.ERROR, result.getStatus());
-        assertEquals(UserStatsWrapper.Error.USER_NOT_FOUND, result.getError());
-        assertNull(result.getUserStats());
+        assertEquals(UserDataWrapper.Status.ERROR, result.getStatus());
+        assertEquals(UserDataWrapper.Error.USER_NOT_FOUND, result.getError());
+        assertNull(result.getUserData());
     }
 
     @Test
     void shouldReturnWrapperWithErrorWhenCreatingErrorResponseWithProperErrorAndWithoutUserStats() {
         //when
-        UserStatsWrapper result = UserStatsWrapper.createErrorResponse(UserStatsWrapper.Error.USER_NOT_FOUND, null);
+        UserDataWrapper result = UserDataWrapper.createErrorResponse(UserDataWrapper.Error.USER_NOT_FOUND, null);
 
         //then
         assertNotNull(result);
-        assertEquals(UserStatsWrapper.Status.ERROR, result.getStatus());
-        assertEquals(UserStatsWrapper.Error.USER_NOT_FOUND, result.getError());
-        assertNull(result.getUserStats());
+        assertEquals(UserDataWrapper.Status.ERROR, result.getStatus());
+        assertEquals(UserDataWrapper.Error.USER_NOT_FOUND, result.getError());
+        assertNull(result.getUserData());
     }
 
     @Test
     void shouldReturnWrapperWithErrorWhenCreatingErrorResponseWithProperErrorAndWithUserStats() {
         //when
-        UserStatsWrapper result = UserStatsWrapper.createErrorResponse(UserStatsWrapper.Error.STATS_NOT_PERSISTED, new UserStats(
+        UserDataWrapper result = UserDataWrapper.createErrorResponse(UserDataWrapper.Error.STATS_NOT_PERSISTED, new UserData(
                 123,
                 "test",
                 "testName",
                 "testType",
                 "http://x.y/z",
                 OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
+                5,
+                15,
                 35L
         ));
 
         //then
         assertNotNull(result);
-        assertEquals(UserStatsWrapper.Status.ERROR, result.getStatus());
-        assertEquals(UserStatsWrapper.Error.STATS_NOT_PERSISTED, result.getError());
-        assertEquals(new UserStats(
+        assertEquals(UserDataWrapper.Status.ERROR, result.getStatus());
+        assertEquals(UserDataWrapper.Error.STATS_NOT_PERSISTED, result.getError());
+        assertEquals(new UserData(
                 123,
                 "test",
                 "testName",
                 "testType",
                 "http://x.y/z",
                 OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
+                5,
+                15,
                 35L
-        ), result.getUserStats());
+        ), result.getUserData());
     }
 }

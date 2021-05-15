@@ -7,8 +7,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.slawkow.githubstats.users.UserService;
-import pl.slawkow.githubstats.users.UserStats;
-import pl.slawkow.githubstats.users.UserStatsWrapper;
+import pl.slawkow.githubstats.users.UserData;
+import pl.slawkow.githubstats.users.UserDataWrapper;
 import pl.slawkow.githubstats.utils.DocumentTestUtils;
 
 import java.time.LocalDateTime;
@@ -32,14 +32,16 @@ class UsersControllerIT {
     @Test
     void controllerShouldReturnValidResponseWhenStatusIsOk() throws Exception {
         //given
-        when(userService.getUserStats("test")).thenReturn(UserStatsWrapper.createOkResponse(
-                new UserStats(
+        when(userService.getUserStats("test")).thenReturn(UserDataWrapper.createOkResponse(
+                new UserData(
                         123,
                         "test",
                         "testName",
                         "testType",
                         "http://x.y/z",
                         OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
+                        5,
+                        15,
                         35L
                 )
         ));
@@ -57,15 +59,17 @@ class UsersControllerIT {
     @Test
     void controllerShouldReturnValidResponseWhenStatusIsErrorButOnlyNotPersisted() throws Exception {
         //given
-        when(userService.getUserStats("test")).thenReturn(UserStatsWrapper.createErrorResponse(
-                UserStatsWrapper.Error.STATS_NOT_PERSISTED,
-                new UserStats(
+        when(userService.getUserStats("test")).thenReturn(UserDataWrapper.createErrorResponse(
+                UserDataWrapper.Error.STATS_NOT_PERSISTED,
+                new UserData(
                         123,
                         "test",
                         "testName",
                         "testType",
                         "http://x.y/z",
                         OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
+                        5,
+                        15,
                         35L
                 )
         ));
@@ -83,8 +87,8 @@ class UsersControllerIT {
     @Test
     void controllerShouldReturnNotFoundWhenUserWasNotFoundInExternalApi() throws Exception {
         //given
-        when(userService.getUserStats("test")).thenReturn(UserStatsWrapper.createErrorResponse(
-                UserStatsWrapper.Error.USER_NOT_FOUND
+        when(userService.getUserStats("test")).thenReturn(UserDataWrapper.createErrorResponse(
+                UserDataWrapper.Error.USER_NOT_FOUND
         ));
 
         //when
@@ -97,8 +101,8 @@ class UsersControllerIT {
     @Test
     void controllerShouldReturnServiceUnavailableWhenExternalApiErrorOccurred() throws Exception {
         //given
-        when(userService.getUserStats("test")).thenReturn(UserStatsWrapper.createErrorResponse(
-                UserStatsWrapper.Error.EXTERNAL_API_ERROR
+        when(userService.getUserStats("test")).thenReturn(UserDataWrapper.createErrorResponse(
+                UserDataWrapper.Error.EXTERNAL_API_ERROR
         ));
 
         //when
