@@ -22,7 +22,7 @@ class UserDataWrapperTest {
                 OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
                 5,
                 15,
-                35L
+                35.0
         ));
 
         //then
@@ -36,7 +36,7 @@ class UserDataWrapperTest {
                 OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
                 5,
                 15,
-                35L
+                35.0
         ), result.getUserData());
         assertEquals(UserDataWrapper.Status.OK, result.getStatus());
         assertNull(result.getError());
@@ -72,7 +72,7 @@ class UserDataWrapperTest {
                 OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
                 5,
                 15,
-                35L
+                35.0
         )));
     }
 
@@ -112,7 +112,7 @@ class UserDataWrapperTest {
                 OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
                 5,
                 15,
-                35L
+                35.0
         ));
 
         //then
@@ -128,7 +128,7 @@ class UserDataWrapperTest {
                 OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
                 5,
                 15,
-                35L
+                35.0
         ), result.getUserData());
     }
 }

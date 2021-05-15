@@ -42,7 +42,7 @@ class UsersControllerIT {
                         OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
                         5,
                         15,
-                        35L
+                        35.0
                 )
         ));
 
@@ -70,7 +70,7 @@ class UsersControllerIT {
                         OffsetDateTime.of(LocalDateTime.of(2021, 5, 15, 10, 10), ZoneOffset.UTC),
                         5,
                         15,
-                        35L
+                        35.0
                 )
         ));
 

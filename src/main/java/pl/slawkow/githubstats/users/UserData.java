@@ -1,11 +1,12 @@
 package pl.slawkow.githubstats.users;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.OffsetDateTime;
 
 @Slf4j
@@ -13,6 +14,7 @@ import java.time.OffsetDateTime;
 @Getter
 @EqualsAndHashCode
 public class UserData {
+    public static final int CALCULATE_PRECISION = 10;
     private final long id;
     private final String login;
     private final String name;
@@ -21,7 +23,7 @@ public class UserData {
     private final OffsetDateTime createdAt;
     private final long followersCount;
     private final long publicRepositoriesCount;
-    private Long calculations;
+    private Double calculations;
 
     public UserData(long id,
                     String login,
@@ -31,7 +33,7 @@ public class UserData {
                     OffsetDateTime createdAt,
                     long followersCount,
                     long publicRepositoriesCount,
-                    Long calculations) {
+                    Double calculations) {
         if (id < 0) {
             throw new IllegalArgumentException("id cannot be lower than 0");
         }
@@ -59,8 +61,13 @@ public class UserData {
             return this;
         }
 
-        calculations = 6 / followersCount * (2 + publicRepositoriesCount);
-        log.info("Calculated stats for user {} with params: followers: {}, public repos: {}. Result is: {}",
+        calculations = BigDecimal.valueOf(6)
+                .setScale(CALCULATE_PRECISION, RoundingMode.HALF_UP)
+                .divide(BigDecimal.valueOf(followersCount), RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(2 + publicRepositoriesCount))
+                .doubleValue();
+
+        log.info("Calculated stats for user '{}' with params: followers: {}, public repos: {}. Result is: {}",
                 login, followersCount, publicRepositoriesCount, calculations);
         return this;
     }
