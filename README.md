@@ -2,6 +2,24 @@
 
 Simple demo project for recruiting purposes.
 
+# Usage
+## REST Api
+### GET /users/{login}
+Simple endpoint which serves information about user obtained from Github. Additionally adds field calculation, which doesn't make sense in real world - is added just for "do something" with received data. The data came from `https://api.github.com/users/{login}`.
+
+Example response for `/users/slawkow`:
+```
+{
+    "id": "11233089",
+    "login": "slawkow",
+    "name": "Sławomir Szczurek",
+    "type": "User",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/11233089?v=4",
+    "createdAt": "2015-02-27T17:09:22Z",
+    "calculations": "36.0"
+}
+```
+
 # Installation
 ### Requirements
 - JDK 11+
