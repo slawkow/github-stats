@@ -56,6 +56,7 @@ public class UserService {
         return UserDataWrapper.createOkResponse(calculatedUserData);
     }
 
+    //Probably could be also done with async application event - it depends on requirements
     private boolean incrementRequestCounter(String login) {
         try {
             usersDatabaseRepository.incrementRequestCounter(login);
